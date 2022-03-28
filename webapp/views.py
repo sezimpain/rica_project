@@ -56,6 +56,7 @@ def new(request, *args, **kwargs):
             return render(request, 'new.html', context={'form': form})
 
 
+@login_required(login_url='login')
 def detail(request, pk):
     student = get_object_or_404(Student, pk=pk)
     context = {
@@ -64,6 +65,7 @@ def detail(request, pk):
     return render(request, 'detail.html', context)
 
 
+@login_required(login_url='login')
 def delete(request, pk):
     if request.method == 'GET':
         student = get_object_or_404(Student, pk=pk)
@@ -76,6 +78,8 @@ def delete(request, pk):
         student.delete()
         return redirect('index')
 
+
+@login_required(login_url='login')
 def update(request, pk):
     student = get_object_or_404(Student, pk=pk)
 
@@ -126,6 +130,7 @@ def update(request, pk):
             return render(request, 'edit.html', context={'form': form, 'student': student})
 
 
+@login_required(login_url='login')
 def delete_items(request):
     data = request.POST
     for pk in data.keys():
