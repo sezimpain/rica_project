@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Detail{% endblock %}
+
+{% block content %}
+    <h1 class="center">Подробная информация</h1>
+    <table class="centered striped highlight">
+        <thead>
+        <tr>
+            <th>Имя и фамилия</th>
+            <th>Контакт</th>
+            <th>Дата рождения</th>
+            <th>Школа</th>
+            <th>Класс</th>
+            <th>Плата за обучение</th>
+            <th>Зарегестрировал</th>
+            <th>Дополнительная информация</th>
+            <th>Адресс</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td>{{ student.name_and_family }}</td>
+            <td>{{ student.phone_number }}</td>
+            <td>{{ student.date|linebreaks }}</td>
+            <td>{{ student.get_school_type_display }}</td>
+            <td>{{ student.grade }}</td>
+            <td>{{ student.pay }}</td>
+            <td>{{ student.registered}}</td>
+            <td>{{ student.additional_info }}</td>
+            <td>{{ student.address }}</td>
+
+
+        </tr>
+        </tbody>
+    </table>
+
+<table class="centered striped highlight">
+        <thead>
+        <tr>
+            <th>Имя и фамилия отца</th>
+            <th>Телефон отца</th>
+            <th>Работа отца</th>
+            <th>Имя и фамилия матери</th>
+            <th>Телефон матери</th>
+            <th>Работа матери</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td>{{ student.father_name }}</td>
+            <td>{{ student.father_phone }}</td>
+            <td>{{ student.father_job }}</td>
+            <td>{{ student.mother_name }}</td>
+            <td>{{ student.mother_phone }}</td>
+            <td>{{ student.mother_job }}</td>
+
+
+        </tr>
+        </tbody>
+    </table>
+    <a href="{% url 'index' %}" class="waves-effect waves-light btn-small" style="margin-top: 20px; margin-left: 40%;">Вернуться на главную</a>
+{% endblock %}

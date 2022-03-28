@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Delete student {{ student.pk }}
+{% endblock %}
+
+{% block content %}
+    <div class="center-align">
+        <h4>Удалить ученика?</h4>
+        <div class="collection">
+            <a class="collection-item"><b>Имя и фамилия: </b>{{ student.name_and_family }}</a>
+            <a class="collection-item"><b>Дата рождения: </b>{{ student.date }}</a>
+            <a class="collection-item"><b>Номер: </b>{{ student.phone_number }}</a>
+            <a class="collection-item"><b>Учится в: </b>{{ student.get_school_type_display }}</a>
+        </div>
+    </div>
+    <div class="center-align">
+        <a href="{% url 'index' %}" class="btn waves-effect waves-light deep-blue accent-3"
+           style="display: inline-block">Отменить</a>
+        <form action="/delete/{{ student.pk }}" method="POST" style="display: inline-block">
+            {% csrf_token %}
+            <button class="btn waves-effect waves-light deep-orange accent-3" type="submit"
+                    style="display: inline-block">Удалить
+            </button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}Students{% endblock %}
+
+{% block content %}
+    <form class="form-inline my-2 my-lg-0" action="{% url 'index' %}">
+            <input type="search" class="form-control mr-sm-2" placeholder="Введите имя" aria-label="Search" name="search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Поиск</button>
+
+        </form>
+        <ul>
+            {% if not request.user.is_authenticated %}
+
+            <li><a href="{% url 'register' %}" style="float:right; padding-left: 15px;">Регистрация на сайт</a></li>
+
+            <li><a href="{% url 'login' %}" style="float:right; padding-left: 15px;">Войти</a>
+            {% else %}</li>
+
+            <li><a href="{% url 'logout' %}" style="float:right; padding-left: 15px;">Выйти</a></li>
+            {% endif %}
+
+        </ul>
+        {% if messages %}
+    <ul class = "messages">
+        {% for message in messages %}
+        <div style="background-color:yellow;" class="alert alert-success" role="alert">{{ message }}</div>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <form action="delete-items/" method="POST">
+        {% csrf_token %}
+        <h1 class="center">Список учеников</h1>
+
+
+        <table class="centered striped highlight">
+            <thead>
+            <tr>
+                <th><label>
+                    <input id="all" class="filled-in" type="checkbox"/>
+                    <span></span>
+                </label></th>
+                <th>Имя и фамилия</th>
+                <th>Контакт</th>
+                <th>Дата рождения</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for student in students %}
+                <td><label>
+                    <input name="{{ student.pk }}" type="checkbox"/>
+                    <span></span>
+                </label></td>
+                <td>{{ student.name_and_family }}</td>
+                <td>{{ student.phone_number }}</td>
+                <td>{{ student.date }}</td>
+                <td>
+                    <a href="{% url 'delete' student.pk %}" class="btn waves-effect waves-light deep-orange accent-3"
+                       style="display: inline-block"><i class="material-icons">delete</i></a>
+                    <a href="{% url 'detail' student.pk %}" class="btn waves-effect waves-light"><i class="material-icons">details</i></a>
+                    <a href="{% url 'update' student.pk %}" class="btn waves-effect waves-light blue accent-4"><i
+                            class="material-icons">update</i></a>
+                </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <a href="{% url 'new' %}" class="btn-floating btn-large waves-effect waves-light red right pulse"
+           style="margin-top: 20px;"><i class="material-icons">add</i></a>
+
+        <button id="btn" class="btn waves-effect waves-light deep-orange accent-3" type="submit" disabled="disabled"
+                style="display: inline-block; margin-top: 20px;">Удалить выбранные
+        </button>
+    </form>
+{% endblock %}
+
+{% block script %}
+    $('#all').click(function(){
+        if ($(this).is(':checked')){
+            $('input:checkbox').prop('checked', true);
+        } else {
+            $('input:checkbox').prop('checked', false);
+        }
+    });
+
+    $('input[type="checkbox"]').change(function(){
+        if ($('input[type=checkbox]').is(":checked")) {
+            $('#btn').attr('disabled', false);
+        } else {
+            $('#btn').attr('disabled', true);
+        }
+    });
+{% endblock %}

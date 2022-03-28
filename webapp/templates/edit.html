@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Edit student
+{% endblock %}
+
+{% block content %}
+    <h1 class="center">Редактировать ученика</h1>
+    <form class="col s12" action="/update/{{ student.pk }}" method="POST">
+
+       {% include 'partial/student_form.html' with btn_text='Update' %}
+
+    </form>
+{% endblock %}
+
+{% block script %}
+    $("#id_date").addClass("datepicker");
+{% endblock %}
