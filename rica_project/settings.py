@@ -26,13 +26,13 @@ REST_FRAMEWORK = {
         ],
     'DEFAULT_PAGINATION_CLASS':
         'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 1
+    'PAGE_SIZE': 20
 }
 from datetime import timedelta
 
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=90),
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=90),
+
     'ROTATE_REFRESH_TOKEN': False,
     'BLACKLIST_AFTER_ROTATION': False
 }
@@ -94,6 +94,8 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+
 AUTH_USER_MODEL = 'account.User'
 
 LOGIN_REDIRECT_URL = '/'

@@ -2,15 +2,21 @@ from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.viewsets import ModelViewSet
 from school.models import School
 from school.serializers import SchoolSerializer
+from .permissions import IsOwnerPermission
+
+
+
 
 
 class PermissionMixin:
     def get_permissions(self):
-        if self.action == ['create', 'update', 'partial_update', 'destroy']:
-            permissions = [IsAdminUser]
+        print('ACTION: ', self.action)
+        if self.action in ['create', 'update', 'partial_update', 'destroy', 'post']:
+            permissions = [IsOwnerPermission,IsAdminUser]
         else:
             permissions = [AllowAny]
         return [permission() for permission in permissions]
+
 
 
 class SchoolViewSet(PermissionMixin, ModelViewSet):
