@@ -7,11 +7,9 @@ from .serializers import GroupSerializer
 
 class PermissionMixin:
     def get_permissions(self):
-        if self.action == ['create', 'update', 'partial_update', 'destroy']:
-            permissions = [IsAdminUser]
 
-        elif self.action == ['update', 'partial_update', 'destroy']:
-            permissions = IsTeacherPermission
+        if self.action == ['create','update', 'partial_update', 'destroy']:
+            permissions = [IsTeacherPermission]
         else:
             permissions = [AllowAny]
         return [permission() for permission in permissions]
