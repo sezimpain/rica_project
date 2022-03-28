@@ -2,12 +2,7 @@ from django.db import models
 
 
 class Group(models.Model):
-    # teacher = models.ForeignKey(
-    #     'account.User',
-    #     related_name='schools',
-    #     on_delete=models.CASCADE,
-    #
-    # )
+
     number = models.IntegerField(
         null=True,
         blank=True)

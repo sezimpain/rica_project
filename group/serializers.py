@@ -11,14 +11,7 @@ class GroupSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        action = self.context.get('action')
-        # if action == 'list':
-            # representation['students'] = instance.students.count()
-        # elif action == 'retrieve':
-            # representation['students'] = StudentSerializer(
-            #     instance.students.all(),
-            #     many=True
-            # ).data
+
         return representation
 
     def create(self, validated_data):
